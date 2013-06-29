@@ -9,16 +9,17 @@ import android.service.dreams.DreamService;
 import android.util.Log;
 import android.widget.TextView;
 
+import pl.patrykgrzegorczyk.batterydaydream.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.R;
 
 /**
  * Main DayDream service
  */
-public class BatteryDreamService extends DreamService {
+public class BatteryDreamService extends DreamService implements BatteryMonitor.BatteryInfoListener {
 
     private static final String TAG = "BatteryDreamService";
 
-    private BatteryBroadcastReceiver mBatteryBroadcastReceiver = new BatteryBroadcastReceiver();
+    private BatteryMonitor mBatteryMonitor;
     private TextView mBatteryLevelView;
 
     @Override
@@ -28,6 +29,9 @@ public class BatteryDreamService extends DreamService {
         if(Log.isLoggable(TAG, Log.VERBOSE)) {
             Log.v(TAG, "onAttachedToWindow()");
         }
+
+        mBatteryMonitor = new BatteryMonitor(this);
+        mBatteryMonitor.setBatteryInfoListener(this);
 
         setInteractive(false);
         setFullscreen(true);
@@ -41,32 +45,19 @@ public class BatteryDreamService extends DreamService {
     public void onDreamingStarted() {
         super.onDreamingStarted();
 
-        registerReceiver(mBatteryBroadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        mBatteryMonitor.startListening();
     }
 
     @Override
     public void onDreamingStopped() {
         super.onDreamingStopped();
 
-        unregisterReceiver(mBatteryBroadcastReceiver);
+        mBatteryMonitor.stopListening();
     }
 
-    private void onBatteryLevelChanged(int batteryLevel) {
+    @Override
+    public void onBatteryLevelChanged(int batteryLevel) {
         //Update battery level info
         mBatteryLevelView.setText(String.valueOf(batteryLevel));
-    }
-
-    private class BatteryBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(!intent.hasExtra(BatteryManager.EXTRA_LEVEL)) {
-                //Only interested in intents with battery level
-                return;
-            }
-
-            int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            onBatteryLevelChanged(batteryLevel);
-        }
     }
 }
