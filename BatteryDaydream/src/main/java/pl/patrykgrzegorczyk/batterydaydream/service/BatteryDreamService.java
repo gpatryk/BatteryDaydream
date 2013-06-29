@@ -26,8 +26,8 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        if(Log.isLoggable(TAG, Log.VERBOSE)) {
-            Log.v(TAG, "onAttachedToWindow()");
+        if(Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "onAttachedToWindow()");
         }
 
         mBatteryMonitor = new BatteryMonitor(this);
@@ -45,12 +45,20 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     public void onDreamingStarted() {
         super.onDreamingStarted();
 
+        if(Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "onDreamingStarted()");
+        }
+
         mBatteryMonitor.startListening();
     }
 
     @Override
     public void onDreamingStopped() {
         super.onDreamingStopped();
+
+        if(Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "onDreamingStopped()");
+        }
 
         mBatteryMonitor.stopListening();
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -16,6 +17,8 @@ import java.lang.ref.WeakReference;
  * state changes.
  */
 public class BatteryMonitor extends BroadcastReceiver {
+
+    private static final String TAG = "BatteryMonitor";
 
     private BatteryInfoListener mBatteryInfoListener;
     private WeakReference<Context> mContext;
@@ -50,6 +53,10 @@ public class BatteryMonitor extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if(Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, "onReceive() " + intent);
+        }
+
         if(!intent.hasExtra(BatteryManager.EXTRA_LEVEL)) {
             //Only interested in intents with battery level
             return;
