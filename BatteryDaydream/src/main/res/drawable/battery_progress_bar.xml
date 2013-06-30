@@ -2,11 +2,11 @@
 
 <layer-list
         xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
             android:id="@android:id/background">
-        <inset android:insetTop="15dp">
-            <shape >
+        <inset android:insetTop="-10dp" android:insetBottom="-10dp">
+            <shape>
+
                 <solid android:color="@color/battery_background" />
                 <stroke android:width="10dp" android:color="@color/battery_background_stroke" />
             </shape>
@@ -15,7 +15,9 @@
     <item
             android:id="@android:id/secondaryProgress">
         <clip android:clipOrientation="vertical" android:gravity="bottom">
-            <inset android:insetTop="26dp"  android:insetBottom="11dp" android:insetLeft="11dp" android:insetRight="11dp">
+
+            <inset android:insetTop="1dp" android:insetBottom="1dp" android:insetLeft="11dp" android:insetRight="11dp">
+
                 <shape>
                     <solid android:color="@color/battery_progress" />
                 </shape>
@@ -25,15 +27,13 @@
     <item
             android:id="@android:id/progress">
         <clip android:clipOrientation="vertical" android:gravity="bottom">
-            <inset android:insetTop="25dp"  android:insetBottom="10dp" android:insetLeft="10dp" android:insetRight="10dp">
-                <shape>
-                    <solid android:color="@color/battery_progress_fully_charged" />
-                </shape>
-            </inset>
+            <shape>
+                <solid android:color="@color/battery_progress_fully_charged" />
+            </shape>
         </clip>
     </item>
     <item>
-        <inset android:insetBottom="235dp" android:insetLeft="40dp" android:insetRight="40dp">
+        <inset android:insetBottom="205dp" android:insetTop="-22dp" android:insetLeft="40dp" android:insetRight="40dp">
             <shape>
                 <solid android:color="@color/battery_background_stroke" />
             </shape>

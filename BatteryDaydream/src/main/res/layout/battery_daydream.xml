@@ -12,7 +12,9 @@
             android:indeterminate="false"
             android:longClickable="false"
             style="@style/BatteryProgressBar"
-            android:minHeight="250dip"
+            android:minHeight="200dip"
+            android:paddingBottom="21dip"
+            android:paddingTop="36dip"
             android:minWidth="150dip"
             android:layout_centerInParent="true"
             android:shadowRadius="3"/>
