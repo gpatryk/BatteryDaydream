@@ -11,7 +11,7 @@ import pl.patrykgrzegorczyk.batterydaydream.R;
 /**
  * Main DayDream service
  */
-public class BatteryDreamService extends DreamService implements BatteryMonitor.BatteryInfoListener {
+public class BatteryDreamService extends DreamService implements BatteryMonitor.BatteryStateListener {
 
     private static final String TAG = "BatteryDreamService";
 
@@ -29,7 +29,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         }
 
         mBatteryMonitor = new BatteryMonitor(this);
-        mBatteryMonitor.setBatteryInfoListener(this);
+        mBatteryMonitor.setBatteryStateListener(this);
 
         setInteractive(false);
         setFullscreen(true);
