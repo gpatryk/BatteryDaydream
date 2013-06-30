@@ -65,7 +65,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     }
 
     @Override
-    public void onBatteryLevelChanged(BatteryMonitor.BatteryState batteryState) {
+    public void onBatteryStateChanged(BatteryMonitor.BatteryState batteryState) {
         //Update battery level info
 
         //batteryLevel = 1;
