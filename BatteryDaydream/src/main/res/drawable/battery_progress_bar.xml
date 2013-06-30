@@ -14,9 +14,9 @@
     <item
             android:id="@android:id/secondaryProgress">
         <clip android:clipOrientation="vertical" android:gravity="bottom">
-            <inset android:insetTop="26dp">
+            <inset android:insetTop="26dp"  android:insetBottom="11dp" android:insetLeft="11dp" android:insetRight="11dp">
                 <shape>
-                    <solid android:color="#55ffffff" />
+                    <solid android:color="#88ffffff" />
                 </shape>
             </inset>
         </clip>

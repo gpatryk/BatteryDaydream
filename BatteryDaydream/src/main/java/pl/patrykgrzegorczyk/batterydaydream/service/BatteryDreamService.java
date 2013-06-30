@@ -74,9 +74,9 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     public void onBatteryStateChanged(BatteryMonitor.BatteryState batteryState) {
         //Update battery level info
 
-        //batteryLevel = 1;
 
         int batteryLevel = batteryState.getLevel();
+
         String batteryLevelText = String.valueOf(batteryLevel);
 
         //First digit of battery progress
