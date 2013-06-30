@@ -100,6 +100,9 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
             mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_normal));
         }
 
+        //reset full progress
+        mBatteryProgressBar.setProgress(0);
+
         if (batteryLevel == batteryState.getScale()) {
             mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
             mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
