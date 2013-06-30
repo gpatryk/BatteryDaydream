@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -86,8 +87,8 @@ public class BatteryMonitor extends BroadcastReceiver {
      */
     public interface BatteryStateListener {
         /**
-         * Called when a battery level has changed
-         * @param batteryState
+         * Called when a battery state has changed
+         * @param batteryState actual battery state
          */
         void onBatteryStateChanged(BatteryState batteryState);
     }
@@ -107,7 +108,7 @@ public class BatteryMonitor extends BroadcastReceiver {
          * @param args Extras from {@link Intent#ACTION_BATTERY_CHANGED} intent.
          * @see BatteryManager
          */
-        public BatteryState(Bundle args) {
+        public BatteryState(@NotNull Bundle args) {
             mLevel = args.getInt(BatteryManager.EXTRA_LEVEL, 0);
             mScale = args.getInt(BatteryManager.EXTRA_SCALE, 100);
             mTemperature = args.getInt(BatteryManager.EXTRA_TEMPERATURE, 0);
