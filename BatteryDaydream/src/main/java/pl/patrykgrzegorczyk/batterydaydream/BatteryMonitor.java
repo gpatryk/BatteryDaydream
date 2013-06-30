@@ -28,6 +28,14 @@ public class BatteryMonitor extends BroadcastReceiver {
         mContext = new WeakReference<Context>(context);
     }
 
+    @Nullable public Context getContext() {
+        return mContext.get();
+    }
+
+    public void setContext(@Nullable Context context) {
+        mContext = new WeakReference<Context>(context);
+    }
+
     public void startListening() {
         Context context = mContext.get();
         if(context == null) {

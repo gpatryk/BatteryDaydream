@@ -43,6 +43,12 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     }
 
     @Override
+    public void onDetachedFromWindow() {
+        mBatteryMonitor.setBatteryStateListener(null);
+        mBatteryMonitor.setContext(null);
+    }
+
+    @Override
     public void onDreamingStarted() {
         super.onDreamingStarted();
 

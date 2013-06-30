@@ -27,6 +27,7 @@
 
     <style name="BatteryLevelMajor" parent="BatteryLevelMinor">
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="BatteryLevelMinor">
@@ -35,6 +36,7 @@
         <item name="android:textIsSelectable">false</item>
         <item name="android:textStyle">normal</item>
         <item name="android:layout_centerVertical">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
 </resources>
