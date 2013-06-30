@@ -7,8 +7,8 @@
             android:id="@android:id/background">
         <inset android:insetTop="15dp">
             <shape >
-                <solid android:color="#00000000" />
-                <stroke android:width="10dp" android:color="#ffffff" />
+                <solid android:color="@color/battery_background" />
+                <stroke android:width="10dp" android:color="@color/battery_background_stroke" />
             </shape>
         </inset>
     </item>
@@ -17,7 +17,7 @@
         <clip android:clipOrientation="vertical" android:gravity="bottom">
             <inset android:insetTop="26dp"  android:insetBottom="11dp" android:insetLeft="11dp" android:insetRight="11dp">
                 <shape>
-                    <solid android:color="#88ffffff" />
+                    <solid android:color="@color/battery_progress" />
                 </shape>
             </inset>
         </clip>
@@ -27,7 +27,7 @@
         <clip android:clipOrientation="vertical" android:gravity="bottom">
             <inset android:insetTop="25dp"  android:insetBottom="10dp" android:insetLeft="10dp" android:insetRight="10dp">
                 <shape>
-                    <solid android:color="#ffffff" />
+                    <solid android:color="@color/battery_progress_fully_charged" />
                 </shape>
             </inset>
         </clip>
@@ -35,7 +35,7 @@
     <item>
         <inset android:insetBottom="235dp" android:insetLeft="40dp" android:insetRight="40dp">
             <shape>
-                <solid android:color="#ffffff" />
+                <solid android:color="@color/battery_background_stroke" />
             </shape>
         </inset>
     </item>

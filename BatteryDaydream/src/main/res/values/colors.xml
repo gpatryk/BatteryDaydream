@@ -3,4 +3,8 @@
     <color name="battery_fully_charged">#010101</color>
     <color name="battery_low">#FF0000</color>
     <color name="battery_normal">@android:color/white</color>
+    <color name="battery_progress_fully_charged">#ffffff</color>
+    <color name="battery_progress">#88ffffff</color>
+    <color name="battery_background">#00000000</color>
+    <color name="battery_background_stroke">#ffffff</color>
 </resources>
