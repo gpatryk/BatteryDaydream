@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="battery_fully_charged">#010101</color>
+    <color name="battery_low">#FF0000</color>
+    <color name="battery_normal">@android:color/white</color>
+</resources>

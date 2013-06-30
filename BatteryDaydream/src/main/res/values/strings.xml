@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Battery Daydream</string>
-    <string name="battery_level_unknown">Unknown</string>
+    <string name="battery_level_unknown">\?</string>
     <string name="battery_dreamservice_label">Battery Daydream service</string>
 </resources>

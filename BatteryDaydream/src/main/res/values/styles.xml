@@ -25,4 +25,16 @@
         <item name="android:maxHeight">20dip</item>
     </style>
 
+    <style name="BatteryLevelMajor" parent="BatteryLevelMinor">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BatteryLevelMinor">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textSize">80sp</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
 </resources>

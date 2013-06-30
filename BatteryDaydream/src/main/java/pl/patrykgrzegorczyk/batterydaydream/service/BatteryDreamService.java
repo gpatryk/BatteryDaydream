@@ -2,9 +2,8 @@ package pl.patrykgrzegorczyk.batterydaydream.service;
 
 import android.service.dreams.DreamService;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.ProgressBar;
-import android.graphics.Color;
+import android.widget.TextView;
 
 import pl.patrykgrzegorczyk.batterydaydream.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.R;
@@ -17,8 +16,8 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     private static final String TAG = "BatteryDreamService";
 
     private BatteryMonitor mBatteryMonitor;
-    private TextView mBatteryLevelView;
-    private TextView mBatteryLevelView2;
+    private TextView mBatteryLevelMajorView;
+    private TextView mBatteryLevelMinorView;
     private ProgressBar mBatteryProgressBar;
 
     @Override
@@ -37,8 +36,8 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         setScreenBright(false);
         setContentView(R.layout.battery_daydream);
 
-        mBatteryLevelView = (TextView) findViewById(R.id.battery_level);
-        mBatteryLevelView2 = (TextView) findViewById(R.id.battery_level_2);
+        mBatteryLevelMajorView = (TextView) findViewById(R.id.battery_level_major);
+        mBatteryLevelMinorView = (TextView) findViewById(R.id.battery_level_minor);
 
         mBatteryProgressBar = (ProgressBar) findViewById(R.id.battery_progress);
     }
@@ -73,28 +72,35 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
 
         String batteryLevelText = String.valueOf(batteryLevel);
 
-        String firstText = batteryLevelText.substring(0, 1);
-        String secondText = batteryLevelText.substring(1);
+        //First digit of battery progress
+        String batteryLevelMajor = batteryLevelText.substring(0, 1);
+        //Rest of the digits
+        String batteryLevelMinor = new String();
 
-        mBatteryLevelView.setText(firstText);
-        mBatteryLevelView2.setText(secondText);
+        if(batteryLevelText.length() > 1) {
+            //battery percentage have more than 1 digit
+            batteryLevelMinor = batteryLevelText.substring(1);
+        }
+
+        mBatteryLevelMajorView.setText(batteryLevelMajor);
+        mBatteryLevelMinorView.setText(batteryLevelMinor);
 
         if(batteryLevel <= 10){
-            mBatteryLevelView.setTextColor(Color.RED);
-            mBatteryLevelView2.setTextColor(Color.RED);
+            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_low));
+            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_low));
         }else{
-            mBatteryLevelView.setTextColor(Color.WHITE);
-            mBatteryLevelView2.setTextColor(Color.WHITE);
+            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_normal));
+            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_normal));
         }
 
         if(batteryLevel == 100){
-            mBatteryLevelView.setTextColor(Color.rgb(1,1,1));
-            mBatteryLevelView2.setTextColor(Color.rgb(1,1,1));
+            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
+            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
             mBatteryProgressBar.setProgress(batteryLevel);
+            return;
         }
-        else{
-            mBatteryProgressBar.setSecondaryProgress(batteryLevel);
-        }
+
+        mBatteryProgressBar.setSecondaryProgress(batteryLevel);
 
     }
 }
