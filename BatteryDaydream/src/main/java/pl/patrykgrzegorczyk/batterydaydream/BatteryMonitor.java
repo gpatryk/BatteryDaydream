@@ -63,14 +63,25 @@ public class BatteryMonitor extends BroadcastReceiver {
             return;
         }
 
-        int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+        BatteryState batteryState = new BatteryState(intent.getExtras());
 
         if(mBatteryStateListener == null) {
             return;
         }
 
         //Notify listener
-        mBatteryStateListener.onBatteryLevelChanged(batteryLevel);
+        mBatteryStateListener.onBatteryLevelChanged(batteryState);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when a battery state changed
+     */
+    public interface BatteryStateListener {
+        /**
+         * Called when a battery level has changed
+         * @param batteryState
+         */
+        void onBatteryLevelChanged(BatteryState batteryState);
     }
 
     /**
@@ -129,15 +140,5 @@ public class BatteryMonitor extends BroadcastReceiver {
         }
     }
 
-    /**
-     * Interface definition for a callback to be invoked when a battery state changed
-     */
-    public interface BatteryStateListener {
-        /**
-         * Called when a battery level has changed
-         * @param batteryLevel actual battery level
-         */
-        void onBatteryLevelChanged(int batteryLevel);
-    }
 
 }
