@@ -87,7 +87,7 @@ public class BatteryMonitor extends BroadcastReceiver {
      */
     public interface BatteryStateListener {
         /**
-         * Called when a battery level has changed
+         * Called when a battery state has changed
          * @param batteryState actual battery state
          */
         void onBatteryStateChanged(BatteryState batteryState);
