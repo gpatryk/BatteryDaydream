@@ -82,7 +82,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
 
 
         int batteryLevel = batteryState.getLevel();
-        batteryLevel = 90;
+
         String batteryLevelText = String.valueOf(batteryLevel);
 
         //First digit of battery progress
