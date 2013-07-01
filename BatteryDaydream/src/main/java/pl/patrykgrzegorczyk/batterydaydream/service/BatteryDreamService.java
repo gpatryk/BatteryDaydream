@@ -5,8 +5,10 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import pl.patrykgrzegorczyk.batterydaydream.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.R;
+import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryManagerMonitor;
+import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
+import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryState;
 
 /**
  * Main DayDream service
@@ -28,7 +30,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
             Log.d(TAG, "onAttachedToWindow()");
         }
 
-        mBatteryMonitor = new BatteryMonitor(this);
+        mBatteryMonitor = new BatteryManagerMonitor(this);
         mBatteryMonitor.setBatteryStateListener(this);
 
         setInteractive(false);
@@ -77,7 +79,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     }
 
     @Override
-    public void onBatteryStateChanged(BatteryMonitor.BatteryState batteryState) {
+    public void onBatteryStateChanged(BatteryState batteryState) {
         //Update battery level info
 
 
