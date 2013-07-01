@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.os.Bundle;
 import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
@@ -74,11 +75,17 @@ public class BatteryManagerMonitor extends BroadcastReceiver implements BatteryM
             return;
         }
 
-        BatteryState batteryState = new BatteryState(intent.getExtras());
+        Bundle extras = intent.getExtras();
+        if(extras ==  null) {
+            //Shouldn't normally happen
+            return;
+        }
 
         if(mBatteryStateListener == null) {
             return;
         }
+
+        BatteryState batteryState = new BatteryState(extras);
 
         //Notify listener
         mBatteryStateListener.onBatteryStateChanged(batteryState);

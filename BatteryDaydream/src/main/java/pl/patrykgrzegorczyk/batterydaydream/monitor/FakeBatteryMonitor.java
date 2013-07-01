@@ -3,6 +3,7 @@ package pl.patrykgrzegorczyk.batterydaydream.monitor;
 import android.content.Context;
 import android.os.Handler;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -11,6 +12,8 @@ import java.lang.ref.WeakReference;
  * Fake battery monitor
  */
 public class FakeBatteryMonitor implements BatteryMonitor {
+
+    private static final int DELAY_MILLIS = 100;
 
     private final Mode mMode;
     private WeakReference<Context> mContext;
@@ -31,7 +34,7 @@ public class FakeBatteryMonitor implements BatteryMonitor {
                 //notify listener
                 mBatteryStateListener.onBatteryStateChanged(getBatteryState());
             }
-            mLevelChangeHandler.postDelayed(this, 100);
+            mLevelChangeHandler.postDelayed(this, DELAY_MILLIS);
         }
     };
 
@@ -82,7 +85,7 @@ public class FakeBatteryMonitor implements BatteryMonitor {
         mBatteryStateListener = batteryStateListener;
     }
 
-    public BatteryState getBatteryState() {
+    @NotNull public BatteryState getBatteryState() {
         BatteryState batteryState = new BatteryState();
         batteryState.setLevel(mLevel);
 
@@ -93,7 +96,7 @@ public class FakeBatteryMonitor implements BatteryMonitor {
      * {@link FakeBatteryMonitor} working mode
      */
     public enum Mode {
-        /** Notify with constant (inital) value */
+        /** Notify with constant (initial) value */
         CONSTANT,
         /** Continuously notify listener with changed value */
         CONTINUOUS

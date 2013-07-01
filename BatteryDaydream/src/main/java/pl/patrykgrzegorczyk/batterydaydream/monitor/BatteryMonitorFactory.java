@@ -14,10 +14,12 @@ public class BatteryMonitorFactory {
 
     private static final String TAG = "BatteryMonitorFactory";
 
+    private static final int DEFAULT_INITIAL_BATTERY_LEVEL = 50;
+
     /**
-     * Returns instance of {@link BatteryMonitor}
+     * Creates {@link BatteryMonitor} basing on preferences
      * @param context
-     * @return
+     * @return instance of {@link BatteryMonitor}
      */
     public static BatteryMonitor getMonitor(Context context) {
         //Check if fake battery monitor is enabled in settings
@@ -25,11 +27,11 @@ public class BatteryMonitorFactory {
         if(preferences.getBoolean(DebugPreferenceFragment.KEY_USE_FAKE_BATTERY_MONITOR, false)) {
             //Read Fake battery settings
             FakeBatteryMonitor.Mode mode = preferences.getBoolean(DebugPreferenceFragment.KEY_WORK_IN_CONTINUOUS_MODE, false) ? FakeBatteryMonitor.Mode.CONTINUOUS : FakeBatteryMonitor.Mode.CONSTANT;
-            int initialBatteryLevel = 50;
+            int initialBatteryLevel = DEFAULT_INITIAL_BATTERY_LEVEL;
             try {
-                initialBatteryLevel = Integer.parseInt(preferences.getString(DebugPreferenceFragment.KEY_INITIAL_BATTERY_LEVEL, "50"));
+                initialBatteryLevel = Integer.parseInt(preferences.getString(DebugPreferenceFragment.KEY_INITIAL_BATTERY_LEVEL, String.valueOf(DEFAULT_INITIAL_BATTERY_LEVEL)));
             } catch (NumberFormatException e) {
-                Log.e(TAG, "Couldn't parse intial battery level", e);
+                Log.e(TAG, "Couldn't parse initial battery level", e);
             }
             return new FakeBatteryMonitor(context,mode, initialBatteryLevel);
         }
