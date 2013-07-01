@@ -6,8 +6,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import pl.patrykgrzegorczyk.batterydaydream.R;
-import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryManagerMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
+import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitorFactory;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryState;
 
 /**
@@ -30,7 +30,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
             Log.d(TAG, "onAttachedToWindow()");
         }
 
-        mBatteryMonitor = new BatteryManagerMonitor(this);
+        mBatteryMonitor = BatteryMonitorFactory.getMonitor(this);
         mBatteryMonitor.setBatteryStateListener(this);
 
         setInteractive(false);
