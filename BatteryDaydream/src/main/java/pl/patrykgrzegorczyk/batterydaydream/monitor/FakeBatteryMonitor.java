@@ -1,6 +1,7 @@
 package pl.patrykgrzegorczyk.batterydaydream.monitor;
 
 import android.content.Context;
+import android.os.Handler;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -15,11 +16,29 @@ public class FakeBatteryMonitor implements BatteryMonitor {
     private WeakReference<Context> mContext;
     private BatteryStateListener mBatteryStateListener;
     private int mLevel;
+    private boolean mIncrement = true;
+    private Handler mLevelChangeHandler = new Handler();
+    private Runnable mLevelChangeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(mLevel == 0 || mLevel == 100) {
+                //Change progress direction
+                mIncrement = !mIncrement;
+            }
 
-    public FakeBatteryMonitor(Context context, Mode mode, int initalLevel) {
+            mLevel += mIncrement ? 1 : -1;
+            if(mBatteryStateListener != null) {
+                //notify listener
+                mBatteryStateListener.onBatteryStateChanged(getBatteryState());
+            }
+            mLevelChangeHandler.postDelayed(this, 100);
+        }
+    };
+
+    public FakeBatteryMonitor(Context context, Mode mode, int initialLevel) {
         mContext = new WeakReference<Context>(context);
         mMode = mode;
-        mLevel = initalLevel;
+        mLevel = initialLevel;
     }
 
     @Override
@@ -34,22 +53,23 @@ public class FakeBatteryMonitor implements BatteryMonitor {
 
     @Override
     public void startListening() {
-        switch (mMode) {
-            case CONSTANT:
-                if(mBatteryStateListener == null) {
-                    return;
-                }
-
-                mBatteryStateListener.onBatteryStateChanged(getBatteryState());
-                return;
-            case CONTINOUS:
-                return;
+        if(mBatteryStateListener == null) {
+            return;
         }
+
+        mBatteryStateListener.onBatteryStateChanged(getBatteryState());
+
+        switch (mMode) {
+            case CONTINUOUS:
+                mLevelChangeHandler.postDelayed(mLevelChangeRunnable, 100);
+                break;
+        }
+
     }
 
     @Override
     public void stopListening() {
-
+        mLevelChangeHandler.removeCallbacks(mLevelChangeRunnable);
     }
 
     @Override
@@ -69,8 +89,13 @@ public class FakeBatteryMonitor implements BatteryMonitor {
         return batteryState;
     }
 
+    /**
+     * {@link FakeBatteryMonitor} working mode
+     */
     public enum Mode {
+        /** Notify with constant (inital) value */
         CONSTANT,
-        CONTINOUS
+        /** Continuously notify listener with changed value */
+        CONTINUOUS
     }
 }
