@@ -16,7 +16,7 @@ Developed By
 License
 =======
 
-    Copyright 2012 Patryk Grzegorczyk, Łukasz Szetela
+    Copyright 2013 Patryk Grzegorczyk, Łukasz Szetela
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
