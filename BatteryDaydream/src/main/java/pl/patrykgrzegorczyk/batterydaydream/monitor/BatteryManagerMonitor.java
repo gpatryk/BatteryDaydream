@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -65,7 +66,7 @@ public class BatteryManagerMonitor extends BroadcastReceiver implements BatteryM
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, @NotNull Intent intent) {
         if(Log.isLoggable(TAG, Log.VERBOSE)) {
             Log.v(TAG, "onReceive() " + intent);
         }

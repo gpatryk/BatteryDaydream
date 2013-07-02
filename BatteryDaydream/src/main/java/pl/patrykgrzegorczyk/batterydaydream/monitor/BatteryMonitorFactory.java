@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import pl.patrykgrzegorczyk.batterydaydream.fragment.DebugPreferenceFragment;
 
 /**
@@ -21,7 +23,8 @@ public class BatteryMonitorFactory {
      * @param context
      * @return instance of {@link BatteryMonitor}
      */
-    public static BatteryMonitor getMonitor(Context context) {
+    @NotNull
+    public static BatteryMonitor getMonitor(@NotNull Context context) {
         //Check if fake battery monitor is enabled in settings
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(preferences.getBoolean(DebugPreferenceFragment.KEY_USE_FAKE_BATTERY_MONITOR, false)) {

@@ -20,8 +20,8 @@ public class FakeBatteryMonitor implements BatteryMonitor {
     private BatteryStateListener mBatteryStateListener;
     private int mLevel;
     private boolean mIncrement = true;
-    private Handler mLevelChangeHandler = new Handler();
-    private Runnable mLevelChangeRunnable = new Runnable() {
+    private final Handler mLevelChangeHandler = new Handler();
+    private final Runnable mLevelChangeRunnable = new Runnable() {
         @Override
         public void run() {
             if(mLevel == 0 || mLevel == 100) {

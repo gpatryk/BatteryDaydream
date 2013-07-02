@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import pl.patrykgrzegorczyk.batterydaydream.R;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitorFactory;
@@ -79,7 +81,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     }
 
     @Override
-    public void onBatteryStateChanged(BatteryState batteryState) {
+    public void onBatteryStateChanged(@NotNull BatteryState batteryState) {
         //Update battery level info
 
 
