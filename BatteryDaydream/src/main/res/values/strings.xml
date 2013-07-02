@@ -5,4 +5,5 @@
     <string name="use_fake_battery_monitor">Use FakeBatteryMonitor</string>
     <string name="initial_battery_level">Initial battery level</string>
     <string name="work_in_continuous_mode">Work in continuous mode</string>
+    <string name="normal_brightness_mode">Keep the screen bright while dreaming</string>
 </resources>

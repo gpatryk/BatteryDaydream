@@ -1,5 +1,7 @@
 package pl.patrykgrzegorczyk.batterydaydream.service;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.service.dreams.DreamService;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 import pl.patrykgrzegorczyk.batterydaydream.R;
+import pl.patrykgrzegorczyk.batterydaydream.fragment.DefaultPreferenceFragment;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitorFactory;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryState;
@@ -44,6 +47,9 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         mBatteryLevelMinorView = (TextView) findViewById(R.id.battery_level_minor);
 
         mBatteryProgressBar = (ProgressBar) findViewById(R.id.battery_progress);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        setScreenBright(preferences.getBoolean(DefaultPreferenceFragment.KEY_NORMAL_BRIGHTNESS_MODE, false));
     }
 
     @Override
@@ -100,6 +106,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         }
 
         mBatteryLevelMajorView.setText(batteryLevelMajor);
+
         mBatteryLevelMinorView.setText(batteryLevelMinor);
 
         if (batteryLevel <= 10) {
