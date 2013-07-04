@@ -46,6 +46,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         setContentView(R.layout.battery_daydream);
 
         ChildAnimatingLayout animatingLayout = (ChildAnimatingLayout) findViewById(R.id.animating_layout);
+        //TODO create a position in settings, altering TranslateViewAnimatorProvider with HideShowAnimatorProvider
         animatingLayout.setViewAnimationProvider(new TranslateViewAnimatorProvider());
 
         mBatteryLevelMajorView = (TextView) findViewById(R.id.battery_level_major);

@@ -147,7 +147,7 @@ public class ChildAnimatingLayout extends LinearLayout {
         }
 
         //This prevents animation on view first show.
-        //onConfiguration don't occurs on start. If it occured we should
+        //onConfiguration don't occurs on start. If it occurred we should
         //animate child layout when size changed - it can be out of layout bounds.
         mAnimateOnSizeChanged = true;
     }
