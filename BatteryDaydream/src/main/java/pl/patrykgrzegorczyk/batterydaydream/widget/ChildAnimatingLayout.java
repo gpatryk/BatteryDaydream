@@ -3,6 +3,7 @@ package pl.patrykgrzegorczyk.batterydaydream.widget;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class ChildAnimatingLayout extends LinearLayout {
     private final AnimateRunnable mAnimateRunnable = new AnimateRunnable(mHandler);
     private int mAnimationDelay = DEFAULT_ANIMATION_DELAY;
     private ViewAnimatorProvider mViewAnimationProvider;
+    private boolean mAnimateOnSizeChanged;
 
 
     public ChildAnimatingLayout(Context context) {
@@ -137,12 +139,33 @@ public class ChildAnimatingLayout extends LinearLayout {
     }
 
     @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "onConfigurationChanged(" + newConfig + ")");
+        }
+
+        //This prevents animation on view first show.
+        //onConfiguration don't occurs on start. If it occured we should
+        //animate child layout when size changed - it can be out of layout bounds.
+        mAnimateOnSizeChanged = true;
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         if(Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "onSizeChanged()");
         }
+
+        if(!mAnimateOnSizeChanged) {
+            //Shouldn't animate
+            return;
+        }
+
+        mAnimateOnSizeChanged = false;
 
         //If size has changed it's possible that child view is out of sight,
         //so better move the child to new position in layout bounds
