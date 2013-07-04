@@ -2,8 +2,6 @@ package pl.patrykgrzegorczyk.batterydaydream.widget;
 
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -18,13 +16,12 @@ public class ChildAnimatingLayout extends LinearLayout {
 
     private static final String TAG = "ChildAnimatingLayout";
     private static final int DEFAULT_ANIMATION_DELAY = 30 * 1000; //30 seconds
-    private static final int DEFAULT_ANIMATION_DURATION = 1000; // 1 second
 
     private View mAnimatedView;
     private Handler mHandler = new Handler();
     private AnimateRunnable mAnimateRunnable = new AnimateRunnable(mHandler);
     private int mAnimationDelay = DEFAULT_ANIMATION_DELAY;
-    private int mAnimationDuration = DEFAULT_ANIMATION_DURATION;
+    private ViewAnimatorProvider mViewAnimationProvider;
 
 
     public ChildAnimatingLayout(Context context) {
@@ -48,12 +45,12 @@ public class ChildAnimatingLayout extends LinearLayout {
         mAnimationDelay = animationDelay;
     }
 
-    public int getAnimationDuration() {
-        return mAnimationDuration;
+    public ViewAnimatorProvider getViewAnimationProvider() {
+        return mViewAnimationProvider;
     }
 
-    public void setAnimationDuration(int animationDuration) {
-        mAnimationDuration = animationDuration;
+    public void setViewAnimationProvider(ViewAnimatorProvider viewAnimationProvider) {
+        mViewAnimationProvider = viewAnimationProvider;
     }
 
     @Override
@@ -116,10 +113,6 @@ public class ChildAnimatingLayout extends LinearLayout {
             return;
         }
 
-        //Center child view
-        mAnimatedView.setX((getWidth() - mAnimatedView.getWidth()) / 2);
-        mAnimatedView.setY((getHeight() - mAnimatedView.getHeight()) / 2);
-
         mHandler.postDelayed(mAnimateRunnable, getAnimationDelay());
     }
 
@@ -155,19 +148,20 @@ public class ChildAnimatingLayout extends LinearLayout {
             final int newX = (int) (Math.random() * (getWidth() - mAnimatedView.getWidth()));
             final int newY = (int) (Math.random() * (getHeight() - mAnimatedView.getHeight()));
 
-            //Animate child view move
-            AnimatorSet animatorSet = new AnimatorSet();
-            Animator moveXAnimator = ObjectAnimator.ofFloat(mAnimatedView, "x", mAnimatedView.getX(), newX);
-            Animator moveYAnimator = ObjectAnimator.ofFloat(mAnimatedView, "y", mAnimatedView.getY(), newY);
+            if(mViewAnimationProvider == null) {
+                return;
+            }
 
-            animatorSet.play(moveXAnimator).with(moveYAnimator);
-            animatorSet.setDuration(getAnimationDuration());
-            animatorSet.start();
+            Animator animator = mViewAnimationProvider.provideAnimator(mAnimatedView, newX, newY);
+            animator.start();
 
             //Schedule next animation
-
             mHandler.removeCallbacks(this);
             mHandler.postDelayed(this, getAnimationDelay());
         }
+    }
+
+    public interface ViewAnimatorProvider {
+        Animator provideAnimator(View view, int newX, int newY);
     }
 }
