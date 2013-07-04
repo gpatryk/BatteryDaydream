@@ -129,6 +129,5 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         }
 
         mBatteryProgressBar.setSecondaryProgress(batteryLevel);
-
     }
 }

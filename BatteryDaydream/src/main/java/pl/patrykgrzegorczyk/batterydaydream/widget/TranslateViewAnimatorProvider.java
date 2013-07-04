@@ -5,6 +5,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Provides translate animation
  */
@@ -13,7 +15,7 @@ public class TranslateViewAnimatorProvider implements ChildAnimatingLayout.ViewA
     private static final int ANIMATION_DURATION = 1000; // 1 second
 
     @Override
-    public Animator provideAnimator(View view, int newX, int newY) {
+    @NotNull public Animator provideAnimator(@NotNull View view, int newX, int newY) {
         //Animate child view move
         AnimatorSet animatorSet = new AnimatorSet();
         Animator moveXAnimator = ObjectAnimator.ofFloat(view, "x", view.getX(), newX);

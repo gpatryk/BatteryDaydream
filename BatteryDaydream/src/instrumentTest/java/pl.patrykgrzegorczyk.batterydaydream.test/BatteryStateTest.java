@@ -19,7 +19,7 @@ public class BatteryStateTest extends AndroidTestCase {
     }
 
     public void testShouldHave100AsDefaultScale() {
-        assertEquals(100, mBatteryState.getScale());;
+        assertEquals(100, mBatteryState.getScale());
     }
 
     public void testShouldBeFull() {

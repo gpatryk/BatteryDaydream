@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Layout changing child position with animation. Can hold only one child
+ * Layout changing child position with animation. Can hold only one direct child
  */
 public class ChildAnimatingLayout extends LinearLayout {
 
@@ -19,8 +22,8 @@ public class ChildAnimatingLayout extends LinearLayout {
     private static final int DEFAULT_ANIMATION_DELAY = 30 * 1000; //30 seconds
 
     private View mAnimatedView;
-    private Handler mHandler = new Handler();
-    private AnimateRunnable mAnimateRunnable = new AnimateRunnable(mHandler);
+    private final Handler mHandler = new Handler();
+    private final AnimateRunnable mAnimateRunnable = new AnimateRunnable(mHandler);
     private int mAnimationDelay = DEFAULT_ANIMATION_DELAY;
     private ViewAnimatorProvider mViewAnimationProvider;
 
@@ -46,11 +49,12 @@ public class ChildAnimatingLayout extends LinearLayout {
         mAnimationDelay = animationDelay;
     }
 
+    @Nullable
     public ViewAnimatorProvider getViewAnimationProvider() {
         return mViewAnimationProvider;
     }
 
-    public void setViewAnimationProvider(ViewAnimatorProvider viewAnimationProvider) {
+    public void setViewAnimationProvider(@Nullable ViewAnimatorProvider viewAnimationProvider) {
         mViewAnimationProvider = viewAnimationProvider;
     }
 
@@ -146,7 +150,7 @@ public class ChildAnimatingLayout extends LinearLayout {
         mHandler.post(mAnimateRunnable);
     }
 
-    public class AnimateRunnable implements Runnable {
+    private class AnimateRunnable implements Runnable {
 
         private final Handler mHandler;
 
@@ -158,6 +162,10 @@ public class ChildAnimatingLayout extends LinearLayout {
         public void run() {
             if(Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "run()");
+            }
+
+            if(mAnimatedView == null) {
+                return;
             }
 
             //Calculate new position
@@ -177,7 +185,17 @@ public class ChildAnimatingLayout extends LinearLayout {
         }
     }
 
+    /**
+     * Provides animation which will be played on child view of {@link ChildAnimatingLayout}
+     */
     public interface ViewAnimatorProvider {
-        Animator provideAnimator(View view, int newX, int newY);
+        /**
+         * Returns animator which will be animating view move from current position to (newX, newY)
+         * @param view view to animate
+         * @param newX desired X position of the view
+         * @param newY desired Y position of the view
+         * @return
+         */
+        @NotNull Animator provideAnimator(@NotNull View view, int newX, int newY);
     }
 }
