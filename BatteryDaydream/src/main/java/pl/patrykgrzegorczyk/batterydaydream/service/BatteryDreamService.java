@@ -45,10 +45,9 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
 
         mBatteryLevelMajorView = (TextView) findViewById(R.id.battery_level_major);
         mBatteryLevelMinorView = (TextView) findViewById(R.id.battery_level_minor);
-
         mBatteryProgressBar = (ProgressBar) findViewById(R.id.battery_progress);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         setScreenBright(preferences.getBoolean(DefaultPreferenceFragment.KEY_NORMAL_BRIGHTNESS_MODE, false));
     }
 
@@ -89,10 +88,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     @Override
     public void onBatteryStateChanged(@NotNull BatteryState batteryState) {
         //Update battery level info
-
-
         int batteryLevel = batteryState.getLevel();
-
         String batteryLevelText = String.valueOf(batteryLevel);
 
         //First digit of battery progress

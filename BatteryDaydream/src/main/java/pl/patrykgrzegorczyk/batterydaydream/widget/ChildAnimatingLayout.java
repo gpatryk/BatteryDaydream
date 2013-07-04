@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 public class ChildAnimatingLayout extends LinearLayout {
 
     private static final String TAG = "ChildAnimatingLayout";
-    private static final int DEFAULT_ANIMATION_DELAY = 3 * 1000; //30 seconds
+    private static final int DEFAULT_ANIMATION_DELAY = 30 * 1000; //30 seconds
     private static final int DEFAULT_ANIMATION_DURATION = 1000; // 1 second
 
     private View mAnimatedView;
