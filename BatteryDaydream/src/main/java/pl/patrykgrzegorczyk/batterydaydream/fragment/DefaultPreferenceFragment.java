@@ -25,18 +25,42 @@ public class DefaultPreferenceFragment extends PreferenceFragment implements Pre
         ListPreference animationType = (ListPreference) findPreference(KEY_ANIMATION_TYPE);
         animationType.setOnPreferenceChangeListener(this);
 
-        updatePreferenceSummary(KEY_ANIMATION_TYPE, animationType.getValue());
+        updateAnimationTypePreferenceSummary(KEY_ANIMATION_TYPE, animationType.getValue());
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
         if(key.equals(KEY_ANIMATION_TYPE)) {
-            updatePreferenceSummary(key, newValue.toString());
+            updateAnimationTypePreferenceSummary(key, newValue.toString());
         }
         return true;
     }
-    private void updatePreferenceSummary(String key, String value) {
-        findPreference(key).setSummary(value);
+    private void updateAnimationTypePreferenceSummary(String key, String value) {
+        String[] values = getResources().getStringArray(R.array.animation_types_values);
+        String[] names = getResources().getStringArray(R.array.animation_types_names);
+
+        int valueIndex = -1;
+
+        for(int i = 0; i < values.length; i++) {
+            if(values[i].equals(value)) {
+                valueIndex = i;
+                break;
+            }
+        }
+
+        if(valueIndex < 0) {
+            //Value not found in array
+            return;
+        }
+
+        if(valueIndex >= names.length) {
+            //Index grater than max index in names array
+            return;
+        }
+
+        String name = names[valueIndex];
+
+        findPreference(key).setSummary(name);
     }
 }
