@@ -15,7 +15,7 @@ import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitorFactory;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryState;
 import pl.patrykgrzegorczyk.batterydaydream.widget.ChildAnimatingLayout;
-import pl.patrykgrzegorczyk.batterydaydream.widget.TranslateViewAnimatorProvider;
+import pl.patrykgrzegorczyk.batterydaydream.widget.ViewAnimatorProviderFactory;
 
 /**
  * Main DayDream service
@@ -46,8 +46,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         setContentView(R.layout.battery_daydream);
 
         ChildAnimatingLayout animatingLayout = (ChildAnimatingLayout) findViewById(R.id.animating_layout);
-        //TODO create a position in settings, altering TranslateViewAnimatorProvider with HideShowAnimatorProvider
-        animatingLayout.setViewAnimationProvider(new TranslateViewAnimatorProvider());
+        animatingLayout.setViewAnimationProvider(ViewAnimatorProviderFactory.getViewAnimatorProvider(this));
 
         mBatteryLevelMajorView = (TextView) findViewById(R.id.battery_level_major);
         mBatteryLevelMinorView = (TextView) findViewById(R.id.battery_level_minor);

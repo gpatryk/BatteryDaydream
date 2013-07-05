@@ -3,5 +3,12 @@
     <CheckBoxPreference
             android:key="normal_brightness_mode"
             android:title="@string/normal_brightness_mode"
+            android:summary="@string/normal_brightness_mode_summary"
             android:defaultValue="false"/>
+    <ListPreference
+            android:key="animation_type"
+            android:title="@string/animation_type"
+            android:entries="@array/animation_types_names"
+            android:entryValues="@array/animation_types_values"
+            android:defaultValue="@string/animation_type_move"/>
 </PreferenceScreen>
