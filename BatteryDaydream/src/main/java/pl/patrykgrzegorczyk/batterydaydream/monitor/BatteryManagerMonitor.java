@@ -92,5 +92,4 @@ public class BatteryManagerMonitor extends BroadcastReceiver implements BatteryM
         mBatteryStateListener.onBatteryStateChanged(batteryState);
     }
 
-
 }
