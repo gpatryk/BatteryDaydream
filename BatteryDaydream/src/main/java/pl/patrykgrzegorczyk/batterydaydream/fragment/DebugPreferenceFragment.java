@@ -19,7 +19,5 @@ public class DebugPreferenceFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.debug_preferences);
-
-        //TODO change summary of animation preference to current animation type
     }
 }

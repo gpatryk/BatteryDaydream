@@ -6,7 +6,7 @@ import android.os.Bundle;
 import pl.patrykgrzegorczyk.batterydaydream.fragment.DebugPreferenceFragment;
 
 /**
- * Settings activity containing debug settings
+ * Activity containing debug settings
  */
 public class DebugSettingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

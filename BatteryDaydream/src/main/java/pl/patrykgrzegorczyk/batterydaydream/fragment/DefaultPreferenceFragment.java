@@ -21,8 +21,20 @@ public class DefaultPreferenceFragment extends PreferenceFragment implements Sha
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
