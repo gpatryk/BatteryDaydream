@@ -21,4 +21,6 @@
     <string name="animation_type_fadeout_fadein">fadeoutfadein</string>
     <string name="animation_type_fadeout_fadein_name">Fade Out, Fade In</string>
     <string name="animation_type">Animation</string>
+    <string name="night_mode">Night mode</string>
+    <string name="night_mode_summary">Very dim display</string>
 </resources>

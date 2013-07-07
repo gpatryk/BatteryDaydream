@@ -54,6 +54,10 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         setScreenBright(preferences.getBoolean(DefaultPreferenceFragment.KEY_NORMAL_BRIGHTNESS_MODE, false));
+
+        boolean nightMode = preferences.getBoolean(DefaultPreferenceFragment.KEY_NIGHT_MODE, true);
+        //In night mode decrease alpha to 0.3
+        animatingLayout.setAlpha(nightMode ? 0.3f : 1.0f);
     }
 
     @Override

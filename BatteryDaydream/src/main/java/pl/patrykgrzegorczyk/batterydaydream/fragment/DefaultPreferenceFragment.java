@@ -15,6 +15,7 @@ public class DefaultPreferenceFragment extends PreferenceFragment implements Sha
     //This constants should be in sync with preferences.xml
     public static final String KEY_NORMAL_BRIGHTNESS_MODE = "normal_brightness_mode";
     public static final String KEY_ANIMATION_TYPE = "animation_type";
+    public static final String KEY_NIGHT_MODE = "night_mode";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
