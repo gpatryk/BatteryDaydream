@@ -4,8 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.service.dreams.DreamService;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +12,7 @@ import pl.patrykgrzegorczyk.batterydaydream.fragment.DefaultPreferenceFragment;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitor;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryMonitorFactory;
 import pl.patrykgrzegorczyk.batterydaydream.monitor.BatteryState;
+import pl.patrykgrzegorczyk.batterydaydream.widget.BatteryLevel;
 import pl.patrykgrzegorczyk.batterydaydream.widget.ChildAnimatingLayout;
 import pl.patrykgrzegorczyk.batterydaydream.widget.ViewAnimatorProviderFactory;
 
@@ -25,9 +24,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     private static final String TAG = "BatteryDreamService";
 
     private BatteryMonitor mBatteryMonitor;
-    private TextView mBatteryLevelMajorView;
-    private TextView mBatteryLevelMinorView;
-    private ProgressBar mBatteryProgressBar;
+    private BatteryLevel mBatteryLevel;
 
     @Override
     public void onAttachedToWindow() {
@@ -48,9 +45,7 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
         ChildAnimatingLayout animatingLayout = (ChildAnimatingLayout) findViewById(R.id.animating_layout);
         animatingLayout.setViewAnimationProvider(ViewAnimatorProviderFactory.getViewAnimatorProvider(this));
 
-        mBatteryLevelMajorView = (TextView) findViewById(R.id.battery_level_major);
-        mBatteryLevelMinorView = (TextView) findViewById(R.id.battery_level_minor);
-        mBatteryProgressBar = (ProgressBar) findViewById(R.id.battery_progress);
+        mBatteryLevel = (BatteryLevel) findViewById(R.id.battery_level);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         setScreenBright(preferences.getBoolean(DefaultPreferenceFragment.KEY_NORMAL_BRIGHTNESS_MODE, false));
@@ -97,41 +92,8 @@ public class BatteryDreamService extends DreamService implements BatteryMonitor.
     @Override
     public void onBatteryStateChanged(@NotNull BatteryState batteryState) {
         //Update battery level info
-        int batteryLevel = batteryState.getLevel();
-        String batteryLevelText = String.valueOf(batteryLevel);
+        mBatteryLevel.setScale(batteryState.getScale());
+        mBatteryLevel.setLevel(batteryState.getLevel());
 
-        //First digit of battery progress
-        String batteryLevelMajor = batteryLevelText.substring(0, 1);
-        //Rest of the digits
-        String batteryLevelMinor = "";
-
-        if (batteryLevelText.length() > 1) {
-            //battery percentage have more than 1 digit
-            batteryLevelMinor = batteryLevelText.substring(1);
-        }
-
-        mBatteryLevelMajorView.setText(batteryLevelMajor);
-
-        mBatteryLevelMinorView.setText(batteryLevelMinor);
-
-        if (batteryLevel <= 10) {
-            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_low));
-            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_low));
-        } else {
-            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_normal));
-            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_normal));
-        }
-
-        //reset full progress
-        mBatteryProgressBar.setProgress(0);
-
-        if (batteryLevel == batteryState.getScale()) {
-            mBatteryLevelMajorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
-            mBatteryLevelMinorView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
-            mBatteryProgressBar.setProgress(batteryLevel);
-            return;
-        }
-
-        mBatteryProgressBar.setSecondaryProgress(batteryLevel);
     }
 }

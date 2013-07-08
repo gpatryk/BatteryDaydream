@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Without this 1dp padding sometimes animation would leave artifacts.
+https://code.google.com/p/android/issues/detail?id=22151
+Fix for this bug was released in 4.0 but I've experienced it on Nexus 4 with Android 4.2.2
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/battery_progress"
+            android:layout_marginTop="11dp"
+            android:indeterminate="false"
+            android:longClickable="false"
+            style="@style/BatteryProgressBar"
+            android:minHeight="200dip"
+            android:paddingBottom="21dip"
+            android:paddingTop="36dip"
+            android:minWidth="150dip"
+            android:layout_centerInParent="true"
+            android:shadowRadius="3"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_centerInParent="true"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content">
+
+        <TextView
+                android:id="@+id/battery_level_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_level_unknown"
+                style="@style/BatteryLevelMajor"
+                />
+
+        <TextView
+                android:id="@+id/battery_level_minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/battery_level_unknown"
+                style="@style/BatteryLevelMinor"/>
+    </LinearLayout>
+
+</RelativeLayout>
