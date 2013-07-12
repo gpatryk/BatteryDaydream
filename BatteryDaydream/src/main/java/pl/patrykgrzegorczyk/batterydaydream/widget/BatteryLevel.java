@@ -44,6 +44,8 @@ public class BatteryLevel extends LinearLayout {
         mProgressBar = (ProgressBar) findViewById(R.id.battery_progress);
         mMajorTextView = (TextView) findViewById(R.id.battery_level_major);
         mMinorTextView = (TextView) findViewById(R.id.battery_level_minor);
+
+        updateView(mLevel, mScale);
     }
 
     /**
@@ -60,12 +62,6 @@ public class BatteryLevel extends LinearLayout {
      */
     public void setScale(int scale) {
         mScale = scale;
-
-        if(mProgressBar == null) {
-            return;
-        }
-
-        mProgressBar.setMax(mScale);
 
         updateView(mLevel, mScale);
     }
@@ -85,6 +81,12 @@ public class BatteryLevel extends LinearLayout {
     public void setLevel(int level) {
         mLevel = level;
 
+        updateView(mLevel, mScale);
+    }
+
+    private void updateView(int batteryLevel, int scale) {
+        String batteryLevelText = String.valueOf(batteryLevel);
+
         if(mProgressBar == null) {
             return;
         }
@@ -96,12 +98,6 @@ public class BatteryLevel extends LinearLayout {
         if(mMinorTextView == null) {
             return;
         }
-
-        updateView(mLevel, mScale);
-    }
-
-    private void updateView(int batteryLevel, int scale) {
-        String batteryLevelText = String.valueOf(batteryLevel);
 
         //First digit of battery progress
         String batteryLevelMajor = batteryLevelText.substring(0, 1);
@@ -127,6 +123,7 @@ public class BatteryLevel extends LinearLayout {
 
         //reset full progress
         mProgressBar.setProgress(0);
+        mProgressBar.setMax(scale);
 
         if (batteryLevel == scale) {
             mMajorTextView.setTextColor(getResources().getColor(R.color.battery_fully_charged));
