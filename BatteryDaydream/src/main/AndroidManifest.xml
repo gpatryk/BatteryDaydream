@@ -28,12 +28,14 @@
 
         <activity
                 android:name=".activity.SettingsActivity"
-                android:label="Daydream Settings">
+                android:label="Daydream Settings"
+                android:icon="@drawable/ic_launcher_settings">
         </activity>
 
         <activity
                 android:name=".activity.DebugSettingsActivity"
-                android:label="Debug Settings">
+                android:label="Debug Settings"
+                android:icon="@drawable/ic_launcher_settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
